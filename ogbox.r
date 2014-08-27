@@ -156,9 +156,6 @@ listStrW = function(daArray){
 }
 
 
-#lovely Pythonlike + operator that pastes strings and concatanes lists
-
-
 
 #concatanate to preallocated. only works for non zero values and with numeric or boolean stuff
 "%c%" = function (x, y){
