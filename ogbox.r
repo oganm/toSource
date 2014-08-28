@@ -9,7 +9,6 @@ gsubMult = function(patterns, replacements, x,
 
 
 
-p0 = paste0
 
 #placed here before I found paste0 was a thing. Still here just in case some other stuff uses it
 dpaste = function (...){
