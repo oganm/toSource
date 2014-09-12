@@ -165,13 +165,23 @@ listStrW = function(daArray){
     return(x)
 }
 
-    
-    
+
+
 # turn every member of daList to a color from the palette
 toColor = function(daList, palette = rainbow(20)){
+
     daList = as.factor(daList)
     uniq = unique(daList)
+    
     colors = vector (length = length(daList))
+    
+    #to match palette names to uniq names so that custom naming is possible
+    if (!is.null(names(palette)){
+        palette = trimNAs(palette[match(names(palette),uniq)])
+    }
+    
+    palette[match(names(palette),uniq)]
+    
     for (i in 1:length(uniq)){
         colors[daList == uniq[i]]= palette[i]
     }
@@ -203,6 +213,5 @@ threeQuartile <- function(x){
 len = length
 
 coVar = function(x) ( 100*sd(x)/mean(x) )
-
 
 
