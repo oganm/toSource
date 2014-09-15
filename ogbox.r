@@ -183,8 +183,10 @@ listStrW = function(daArray){
 
 
 # turn every member of daList to a color from the palette
-toColor = function(daList, palette = rainbow(20)){
-    
+toColor = function(daList, palette = NA){
+    if (is.na(palette)){
+        palette = rainbow(length(daList))
+    }
     daList = as.factor(daList)
     uniq = unique(daList)
     
