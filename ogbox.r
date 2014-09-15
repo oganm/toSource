@@ -1,3 +1,18 @@
+Skip to content
+This repository
+Explore
+Gist
+Blog
+Help
+Ogan Mancarci oganm
+
+1  Unwatch 
+Star 0
+Fork 0oganm/toSource
+branch: master  toSource / ogbox.r
+Ogan Mancarcioganm 3 days ago Update ogbox.r
+1 contributor
+218 lines (172 sloc)  4.986 kb RawBlameHistory  
 gsubMult = function(patterns, replacements, x,  
                     ignore.case = FALSE, perl = FALSE, fixed = FALSE, useBytes = FALSE) {
     for (i in 1:length(patterns)){
@@ -169,24 +184,27 @@ listStrW = function(daArray){
 
 # turn every member of daList to a color from the palette
 toColor = function(daList, palette = rainbow(20)){
-
+    
     daList = as.factor(daList)
     uniq = unique(daList)
     
-    colors = vector (length = length(daList))
+    cols = vector (length = length(daList))
     
     #to match palette names to uniq names so that custom naming is possible
-    if (!is.null(names(palette)){
+    if (!is.null(names(palette))){
         palette = trimNAs(palette[match(names(palette),uniq)])
     }
     
-    palette[match(names(palette),uniq)]
     
     for (i in 1:length(uniq)){
-        colors[daList == uniq[i]]= palette[i]
+        cols[daList == uniq[i]]= palette[i]
     }
     
-    return(colors)
+    out = list()
+    out$cols = cols
+    out$palette = palette
+    
+    return(out)
 }
 
 #to use with ggplot violins. adapted from http://stackoverflow.com/questions/17319487/median-and-quartile-on-violin-plots-in-ggplot2
@@ -213,5 +231,3 @@ threeQuartile <- function(x){
 len = length
 
 coVar = function(x) ( 100*sd(x)/mean(x) )
-
-
