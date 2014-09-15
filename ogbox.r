@@ -1,18 +1,3 @@
-Skip to content
-This repository
-Explore
-Gist
-Blog
-Help
-Ogan Mancarci oganm
-
-1  Unwatch 
-Star 0
-Fork 0oganm/toSource
-branch: master  toSource / ogbox.r
-Ogan Mancarcioganm 3 days ago Update ogbox.r
-1 contributor
-218 lines (172 sloc)  4.986 kb RawBlameHistory  
 gsubMult = function(patterns, replacements, x,  
                     ignore.case = FALSE, perl = FALSE, fixed = FALSE, useBytes = FALSE) {
     for (i in 1:length(patterns)){
