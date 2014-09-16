@@ -1,7 +1,7 @@
-gsubMult = function(patterns, replacements, x,  
+gsubMult = function(patterns, replacements, x,
                     ignore.case = FALSE, perl = FALSE, fixed = FALSE, useBytes = FALSE) {
     for (i in 1:length(patterns)){
-        x = gsub(patterns[i],replacements[i],x, 
+        x = gsub(patterns[i],replacements[i],x,
                  ignore.case, perl, fixed, useBytes)
     }
     return(x)
@@ -76,7 +76,7 @@ repIndiv = function (aVector, n){
         step = step + 1
     }
     return(output)
-}  
+}
 
 # http://stackoverflow.com/questions/6513378/create-a-variable-capturing-the-most-frequent-occurence-by-group
 mode <- function(x) {
@@ -86,8 +86,8 @@ mode <- function(x) {
 
 #load that bloody function no matter what
 insist = function(name){
-    name = substitute(name) 
-    name = as.character(name) 
+    name = substitute(name)
+    name = as.character(name)
     if (!require(name, character.only = T)) {
         install.packages(name)
         Sys.sleep(5)
@@ -108,7 +108,7 @@ listParse = function (daList,daArray){
     out = ''
     for (i in daArray){
         out = out + '[[' +  daArray[i] + ']]'
-    } 
+    }
     eval(parse(text='daList' + out))
 }
 
@@ -118,7 +118,7 @@ listParseW = function (daList,daArray){
     if (length(daArray) > 1){
         for (i in daArray[1 : (length(daArray) - 1)]){
             out = out + '[[' +  i + ']]'
-        } 
+        }
     }
     out = out +'['+ daArray[length(daArray)]+ ']'
     eval(parse(text='daList' + out))
@@ -126,22 +126,22 @@ listParseW = function (daList,daArray){
 
 # sets the list element
 listSet = function(daList,daArray ,something){
-    name = substitute(daList) 
+    name = substitute(daList)
     name = as.character(name)
     out = ''
     for (i in daArray){
         out = out + '[[' +  i + ']]'
     }
-    
+
     eval(parse(text = name + out + '<<-something'))
 }
 
 listStr = function(daArray){
     out = ''
     for (i in daArray[1 : length(daArray)]){
-        
+
         out = out + '[[' +  i + ']]'
-    } 
+    }
     return(out)
 }
 
@@ -150,7 +150,7 @@ listStrW = function(daArray){
     if (length(daArray) > 1){
         for (i in daArray[1 : (length(daArray) - 1)]){
             out = out + '[[' +  i + ']]'
-        } 
+        }
     }
     out = out +'['+ daArray[length(daArray)]+ ']'
     return(out)
@@ -169,28 +169,29 @@ listStrW = function(daArray){
 
 # turn every member of daList to a color from the palette
 toColor = function(daList, palette = NA){
-    if (is.na(palette)){
-        palette = rainbow(length(daList))
-    }
+
     daList = as.factor(daList)
     uniq = unique(daList)
-    
+    if (is.na(palette[1])){
+        palette = rainbow(length(uniq))
+        names(palette) = uniq
+    }
     cols = vector (length = length(daList))
-    
+
     #to match palette names to uniq names so that custom naming is possible
     if (!is.null(names(palette))){
         palette = trimNAs(palette[match(names(palette),uniq)])
     }
-    
-    
+
+
     for (i in 1:length(uniq)){
         cols[daList == uniq[i]]= palette[i]
     }
-    
+
     out = list()
     out$cols = cols
     out$palette = palette
-    
+
     return(out)
 }
 
@@ -206,13 +207,13 @@ median.quartile <- function(x){
         out[5] = max(x)
     }
     names(out) <- c("whisDown","ymin","y","ymax","whisUp")
-    return(out) 
+    return(out)
 }
 
 threeQuartile <- function(x){
     out <- quantile(x, probs = c(0.25,0.5,0.75))
     names(out) <- c("ymin","y","ymax")
-    return(out) 
+    return(out)
 }
 
 len = length
