@@ -1,11 +1,13 @@
 # replacemt to gsmDown. Didn't remove it in case I'm using it somewhere. This
 # will include all GEO related functions
+library(RCurl)
+
 eval( expr = parse( text = getURL(
     "https://raw.githubusercontent.com/oganm/toSource/master/ogbox.r",
     ssl.verifypeer=FALSE) ))
 
 
-GSMfind = function(GSE, regex=''){
+gsmFind = function(GSE, regex=''){
     # finds GSMs that match to a regular expression from a GSE (description not GSM ID)
     library(RCurl)
     page = getURL(paste0('www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=', GSE))
@@ -25,10 +27,10 @@ gsmDown = function(gsm,outfile){
 }
 
 
-GSEdown = function(GSE,regex ='',outDir,progBar = T, extension = '.cel'){
+gseDown = function(GSE,regex ='',outDir,progBar = T, extension = '.cel'){
     # downloads GSMs matching a regular expression from a GSE (description not GSM ID)
     library(RCurl)
-    gsms = GSMfind(GSE, regex)
+    gsms = gsmFind(GSE, regex)
     if (progBar == T){
         pb = txtProgressBar(min = 1, max = length(gsms),initial = 1)
     }
