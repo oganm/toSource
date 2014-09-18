@@ -11,7 +11,7 @@ gsmFind = function(GSE, regex=''){
     # finds GSMs that match to a regular expression from a GSE (description not GSM ID)
     library(RCurl)
     page = getURL(paste0('www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=', GSE))
-    gsms = regmatches(page,gregexpr(paste0('GSM[0-9]*?(?=<.*\n.*?',regex,'</td)'),page,perl=T))[[1]]
+    gsms = regmatches(page,gregexpr(paste0('GSM[0-9]*?(?=<.*\n.*?',regex,'.*?</td)'),page,perl=T))[[1]]
     return(gsms)
 }
 
