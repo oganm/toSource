@@ -9,7 +9,6 @@ gsubMult = function(patterns, replacements, x,
 
 
 
-
 #placed here before I found paste0 was a thing. Still here just in case some other stuff uses it
 dpaste = function (...){
     paste(..., sep='')
@@ -216,6 +215,10 @@ threeQuartile <- function(x){
     return(out)
 }
 
+# function acronyms ----
 len = length
+as.char = as.character
+as.df = as.data.frame
+as.num = as.numeric
 
 coVar = function(x) ( 100*sd(x)/mean(x) )
