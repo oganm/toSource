@@ -106,9 +106,9 @@ teval = function(daString){
 listParse = function (daList,daArray){
     out = ''
     for (i in daArray){
-        out = out + '[[' +  daArray[i] + ']]'
+        out = paste0(out , '[[' ,  daArray[i] , ']]')
     }
-    eval(parse(text='daList' + out))
+    eval(parse(text=paste0('daList' , out)))
 }
 
 #returns the final step as a list
@@ -116,11 +116,11 @@ listParseW = function (daList,daArray){
     out = ''
     if (length(daArray) > 1){
         for (i in daArray[1 : (length(daArray) - 1)]){
-            out = out + '[[' +  i + ']]'
+            out = paste0(out , '[[' ,  i , ']]')
         }
     }
-    out = out +'['+ daArray[length(daArray)]+ ']'
-    eval(parse(text='daList' + out))
+    out = paste0(out ,'[', daArray[length(daArray)], ']')
+    eval(parse(text=paste0('daList' , out)))
 }
 
 # sets the list element
@@ -129,17 +129,17 @@ listSet = function(daList,daArray ,something){
     name = as.character(name)
     out = ''
     for (i in daArray){
-        out = out + '[[' +  i + ']]'
+        out = paste0(out , '[[' ,  i , ']]')
     }
 
-    eval(parse(text = name + out + '<<-something'))
+    eval(parse(text = paste0(name, out, '<<-something')))
 }
 
 listStr = function(daArray){
     out = ''
     for (i in daArray[1 : length(daArray)]){
 
-        out = out + '[[' +  i + ']]'
+        out = paste0(out, '[[',  i, ']]')
     }
     return(out)
 }
@@ -148,10 +148,10 @@ listStrW = function(daArray){
     out = ''
     if (length(daArray) > 1){
         for (i in daArray[1 : (length(daArray) - 1)]){
-            out = out + '[[' +  i + ']]'
+            out = paste0('out','[[',i, ']]')
         }
     }
-    out = out +'['+ daArray[length(daArray)]+ ']'
+    out = paste0(out,'[', daArray[length(daArray)],']')
     return(out)
 }
 
