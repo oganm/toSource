@@ -28,13 +28,10 @@ gsmDown = function(gsm,outfile){
 }
 
 
-gseDown = function(GSE,regex ='',outDir,progBar = T, extension = '.cel'){
+gseDown = function(GSE,regex ='',outDir, extension = '.cel'){
     # downloads GSMs matching a regular expression from a GSE (description not GSM ID)
     library(RCurl)
     gsms = gsmFind(GSE, regex)
-    if (progBar == T){
-        pb = txtProgressBar(min = 1, max = length(gsms),initial = 1)
-    }
     for (i in 1:length(gsms)){
         if (progBar ==T){setTxtProgressBar(pb,i)}
         gsmDown(gsms[i],paste0(outDir,'/', gsms[i],extension))
