@@ -1,4 +1,4 @@
-mergeChips = function(affy1,affy2){
+mergeChips = function(affy1,affy2,allowIntersect=F){
     # for merging affymetrix chips of different generations.
     require(affy)
     PNList1 = probeNames(affy1)
@@ -19,7 +19,12 @@ mergeChips = function(affy1,affy2){
         
     subsetPm = pm(affy1, unique(subsetList))
     subsetPmOldOrdered = pm(affy2, unique(subsetList))
-    subsetPmOld = pm(affy2)
+    
+    if (!allowIntersect){
+        subsetPmOld = pm(affy2)
+    } else {
+        subsetPmOld = pm(affy2,unique(subsetList))
+    }
     
     allPm = cbind(subsetPm, subsetPmOldOrdered)
     
