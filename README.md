@@ -10,4 +10,8 @@ toSource
 
 **homologene:** Uses homologene to get mouse-human homology information. Changing the species and adding new ones is quite easy.
 
+**geneSynonym:** To find gene synonyms
+* **prepGenes:** Fetchs gene_info.gz from NCBI, takes a subset based on species of interest and creates a smaller file only including synonyms. Defaults to human and mouse as species. Also by default it deletes the original downloaded file
+* **geneSynonym:** given a list of genes, it looks for synonyms in the created file.
+
 **ogbox:** stuff and things
