@@ -37,6 +37,8 @@ prepGenes = function(tax=c(9606,10090),removeFull=T){
 geneSynonym = function(genes){
     leData = readLines(paste0(synoTarget,'/geneSynonyms'))
     synos = sapply(genes,function(x){
-        strsplit(grep(x,leData,value=T),split='[|]')
+        strsplit(grep(paste0('(^|[|])',x,'($|[|])'),leData,value=T),split='[|]')
     })
+    return(synos)
 }
+
