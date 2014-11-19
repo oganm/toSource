@@ -8,4 +8,6 @@ toSource
 
 **mergeChips:** Merges two chips of different generations that share probes. Probe names must be preserved. Applies RMA using Affy package
 
+**homologene:** Uses homologene to get mouse-human homology information. Changing the species and adding new ones is quite easy.
+
 **ogbox:** stuff and things
