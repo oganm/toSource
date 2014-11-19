@@ -1,3 +1,17 @@
+# reads specific lines from a file. for some reason it is kinda slow. works much
+# faster from command line. it then places the lines to a function and returns
+# the output
+# modified from
+# http://stackoverflow.com/questions/18235269/efficiently-reading-specific-lines-from-large-files-into-r
+checkLines = function(daFile,lines,fun = readLines, ...){
+    sapply(lines, function(x){
+        con = pipe(paste0("sed -n -e'",x,"p' ",daFile))
+        fun(con, ...)
+        close(con)
+    })
+    
+}
+
 gsubMult = function(patterns, replacements, x,
                     ignore.case = FALSE, perl = FALSE, fixed = FALSE, useBytes = FALSE) {
     for (i in 1:length(patterns)){
