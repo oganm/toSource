@@ -9,7 +9,7 @@ prepGenes = function(tax=c(9606,10090),removeFull=T){
     download.file('ftp://ftp.ncbi.nlm.nih.gov/gene/DATA/gene_info.gz',paste0(synoTarget,'/gene_info.gz'))
     system(paste0('gunzip ',synoTarget,'/gene_info.gz'))
     
-    #sep2 is not yet implemented
+    #sep2 is not yet implemented for fread
     geneInfo = fread(paste0(synoTarget,'/gene_info'),sep='\t',skip=1, header = F)
     
     
@@ -34,11 +34,39 @@ prepGenes = function(tax=c(9606,10090),removeFull=T){
     }
 }
 
-geneSynonym = function(genes){
+geneSynonym = function(genes,cores = 1){
+    # I kept the single core sapply version in case installing parallel is a
+    # problem somewhere.
+    # if a gene name given and it is not on the list, it spews out a warning 
+    # DOES NOT PRINT WARNINGS WHEN USING MULTIPLE CORES
     leData = readLines(paste0(synoTarget,'/geneSynonyms'))
-    synos = sapply(genes,function(x){
-        strsplit(grep(paste0('(^|[|])',x,'($|[|])'),leData,value=T),split='[|]')
-    })
-    return(synos)
+    
+    geneSearcher = function(x){
+        synonyms = strsplit(grep(paste0('(^|[|])',x,'($|[|])'),leData,value=T),split='[|]')
+        if (length(synonyms)==0){
+            synonyms = x
+            warning(paste0('Gene ',x,' could not be found in the list. Returning own name'))
+        }
+        return(synonyms)
+    }
+    
+    if (cores == 1){
+        synos = sapply(genes,geneSearcher)
+        return(synos)
+    } else {
+        require(parallel)
+        # so that I wont fry my laptop
+        if (detectCores()<cores){ 
+            cores = detectCores()
+            print('max cores exceeded')
+            print(paste('set core no to',cores))
+        }
+        options(warn=1)
+        synos = simplify2array(
+            mclapply(genes, geneSearcher, mc.cores = cores)
+        )
+        names(synos) = genes
+        return(synos)
+    }
 }
 
