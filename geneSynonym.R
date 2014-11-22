@@ -110,7 +110,7 @@ eval( expr = parse( text = getURL(
     ssl.verifypeer=FALSE) ))
 
 
-findCollusions(tax){
+findCollusions= function(tax){
     # see how many genes share the same goddamn name
     leData = readLines(paste0(synoTarget,'/',tax))
     geneSynos = strsplit(leData,'[|]')
