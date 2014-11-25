@@ -21,14 +21,6 @@ gsubMult = function(patterns, replacements, x,
     return(x)
 }
 
-
-
-#placed here before I found paste0 was a thing. Still here just in case some other stuff uses it
-dpaste = function (...){
-    paste(..., sep='')
-}
-
-
 getParent = function(step = 1){
     wd = getwd()
     for (i in 1:step){
