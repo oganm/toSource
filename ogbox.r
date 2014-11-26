@@ -12,6 +12,16 @@ checkLines = function(daFile,lines,fun = readLines, ...){
     
 }
 
+# remember to match the cases. 
+sourceGithub = function(user, repo, script){
+    require(RCurl)
+    text = getURL(paste0(
+        "https://raw.githubusercontent.com/",user,'/',repo,'/master/',script),
+        ssl.verifypeer=FALSE) 
+    source(textConnection(text))
+}
+
+
 gsubMult = function(patterns, replacements, x,
                     ignore.case = FALSE, perl = FALSE, fixed = FALSE, useBytes = FALSE) {
     for (i in 1:length(patterns)){
