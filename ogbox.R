@@ -13,8 +13,20 @@ checkLines = function(daFile,lines,fun = readLines, ...){
 }
 
 # remember to match the cases. 
+# defaults to .R if extension not given
+# no need to use quotes
 sourceGithub = function(user, repo, script){
+    user = substitute(user)
+    user = as.character(user)
+    repo = substitute(repo)
+    repo = as.character(repo)
+    script = substitute(script)
+    script = as.character(script)
+    
     require(RCurl)
+    if (!grepl('.(r|R)',script)){
+        script = paste0(script,'.R')
+    }
     text = getURL(paste0(
         "https://raw.githubusercontent.com/",user,'/',repo,'/master/',script),
         ssl.verifypeer=FALSE) 
