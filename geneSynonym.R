@@ -106,7 +106,7 @@ geneSynonym = function(genes,tax,cores = 1){
 # this is not necessary.
 require(RCurl)
 eval( expr = parse( text = getURL(
-    "https://raw.githubusercontent.com/oganm/toSource/master/ogbox.r",
+    "https://raw.githubusercontent.com/oganm/toSource/master/ogbox.R",
     ssl.verifypeer=FALSE) ))
 
 
