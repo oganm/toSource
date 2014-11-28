@@ -1,5 +1,6 @@
-purge = function(){
-    rm(list=ls(all=T))
+# clears all variables and functions
+purge =   function() {
+    rm(list = ls(.GlobalEnv, all.names = T), envir = .GlobalEnv)
 }
 
 
