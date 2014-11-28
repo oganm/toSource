@@ -1,3 +1,8 @@
+purge = function(){
+    rm(list=ls(all=T))
+}
+
+
 # reads specific lines from a file. for some reason it is kinda slow. works much
 # faster from command line. it then places the lines to a function and returns
 # the output
