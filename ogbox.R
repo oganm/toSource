@@ -71,7 +71,11 @@ mergeList = function(aList,bList,forceUnique=T){
     outList = vector(mode= "list",length = length(allNames))
     names(outList) = allNames
     outList = sapply(allNames,function(x){
-        unlist(c(aList[x],bList[x]))
+        out=(c(aList[[x]],bList[[x]]))
+        if (forceUnique){
+            out = unique(out)
+        }
+        return(out)
     })
     return(outList)
 }
