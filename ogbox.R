@@ -1,3 +1,9 @@
+# just a lazy way to get the last value
+ans = function(){
+    .Last.value
+}
+
+
 # clears all variables and functions
 purge =   function() {
     rm(list = ls(.GlobalEnv, all.names = T), envir = .GlobalEnv)
@@ -57,6 +63,17 @@ getParent = function(step = 1){
     parent = getwd()
     setwd(wd)
     return(paste(parent,'/',sep=''))
+}
+
+#merges lists by their common names. adds non common ones.
+mergeList = function(aList,bList,forceUnique=T){
+    allNames = unique(c(names(aList),names(bList)))
+    outList = vector(mode= "list",length = length(allNames))
+    names(outList) = allNames
+    outList = sapply(allNames,function(x){
+        unlist(c(aList[x],bList[x]))
+    })
+    return(outList)
 }
 
 findInList = function(object, aList){
