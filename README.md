@@ -14,4 +14,10 @@ toSource
 * **prepGenes:** Fetchs gene_info.gz from NCBI, takes a subset based on species of interest and creates a smaller file only including synonyms. Defaults to human and mouse as species. Also by default it deletes the original downloaded file
 * **geneSynonym:** given a list of genes, it looks for synonyms in the created file.
 
+**gemmaAnnotate:** Uses annotations from [Gemma](http://www.chibi.ubc.ca/Gemma/home.html) to assign your probesets to gene symbols. This is supposed to be better since Gemma re-does the sequence alignments for probesets. There are a few probesets that map to multiple genes. These gene names are separated by a "|"
+* **getGemmaAnnotGoogle:** Downloads annotation file for the chip for a given GEO id. Uses google's search API to reach the chip though. Normally works but don't use a chip that doesn't exist in gemma. If you chip is good it's probably in gemma.
+* **getGemmaAnnot:** Given a gemma id, downloads the annotation file. I'll try to add a way to get gemma id-geo id matchings.
+* **gemmaAnnot:** Annotates an ExoressionSet object. Commonly the output of pre-processing functions like `rma`. Outputs to a data frame and/or to a file. Output is invisible when writing to file.
+
+
 **ogbox:** stuff and things
