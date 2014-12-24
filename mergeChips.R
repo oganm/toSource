@@ -13,10 +13,10 @@ mergeChips = function(affy1,affy2,allowIntersect=F){
     }
     
     
-        subsetList = PNList1[PNList1 %in% PNList2]
-
+    subsetList = PNList1[PNList1 %in% PNList2]
     
-        
+    
+    
     subsetPm = pm(affy1, unique(subsetList))
     subsetPmOldOrdered = pm(affy2, unique(subsetList))
     
@@ -45,9 +45,9 @@ mergeChips = function(affy1,affy2,allowIntersect=F){
                    allpNList, ngenes, normalize, background, bgversion, 
                    verbose, PACKAGE = "affy")
     
-    phenoD = combine(phenoData(affy1), phenoData(affy2))
+    phenoD = BiocGenerics::combine(phenoData(affy1), phenoData(affy2))
     annot =  annotation(affy2)
-    protocolD = combine(protocolData(affy1), protocolData(affy2))
+    protocolD = BiocGenerics::combine(protocolData(affy1), protocolData(affy2))
     experimentD = experimentData(affy2)
     
     
