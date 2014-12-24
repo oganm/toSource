@@ -33,7 +33,7 @@ gemmaAnnot = function(normalized, chipFile, outFile=NA){
     annotations = annotations[match(rownames(expression), annotations$Probe),]
 
     annotatedExpr = cbind(annotations, expression)
-    if (is.na(file)){
+    if (is.na(outFile)){
         return(annotatedExpr)
     } else {
         write.csv(annotatedExpr,  file = outFile, row.names = F)
