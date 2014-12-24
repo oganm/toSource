@@ -17,7 +17,7 @@ getGemmaAnnotGoogle = function(chipName, chipFile, annotType=c('bioProcess','noP
 
 
 getGemmaAnnot = function(id,chipFile,annotType){
-    download.file(paste0('http://www.chibi.ubc.ca/Gemma/arrays/downloadAnnotationFile.html?id=',id,'&fileType=',annotType[1]),paste0(fileOut,'.gz'))
+    download.file(paste0('http://www.chibi.ubc.ca/Gemma/arrays/downloadAnnotationFile.html?id=',id,'&fileType=',annotType[1]),paste0(chipFile,'.gz'))
     system(paste0('gunzip ', chipFile,'.gz'))
 }
 
