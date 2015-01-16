@@ -18,8 +18,9 @@ purge =   function() {
 checkLines = function(daFile,lines,fun = readLines, ...){
     sapply(lines, function(x){
         con = pipe(paste0("sed -n -e'",x,"p' ",daFile))
-        fun(con, ...)
+        out = fun(con, ...)
         close(con)
+        return(out)
     })
     
 }
