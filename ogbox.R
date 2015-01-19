@@ -37,7 +37,7 @@ sourceGithub = function(user, repo, script){
     script = as.character(script)
     
     require(RCurl)
-    if (!grepl('.(r|R)',script)){
+    if (!grepl('[.](r|R)',script)){
         script = paste0(script,'.R')
     }
     text = getURL(paste0(
@@ -45,7 +45,6 @@ sourceGithub = function(user, repo, script){
         ssl.verifypeer=FALSE) 
     source(textConnection(text))
 }
-
 
 gsubMult = function(patterns, replacements, x,
                     ignore.case = FALSE, perl = FALSE, fixed = FALSE, useBytes = FALSE) {
