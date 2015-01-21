@@ -17,6 +17,7 @@ gsmFind = function(GSE, regex=''){
 
 gsmDown = function(gsm,outfile){
     # downloads a given GSM
+    dir.create(file.path(outFile), showWarnings=F,recursive=T)
     library(RCurl)
     page = getURL(paste0('http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=',gsm))
     download.file(
@@ -33,7 +34,6 @@ gseDown = function(GSE,regex ='',outDir, extension = '.cel'){
     library(RCurl)
     gsms = gsmFind(GSE, regex)
     for (i in 1:length(gsms)){
-        if (progBar ==T){setTxtProgressBar(pb,i)}
         gsmDown(gsms[i],paste0(outDir,'/', gsms[i],extension))
     }
 }
