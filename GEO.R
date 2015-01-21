@@ -17,7 +17,7 @@ gsmFind = function(GSE, regex=''){
 
 gsmDown = function(gsm,outfile){
     # downloads a given GSM
-    dir.create(file.path(outFile), showWarnings=F,recursive=T)
+    dir.create(file.path(outfile), showWarnings=F,recursive=T)
     library(RCurl)
     page = getURL(paste0('http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=',gsm))
     download.file(
