@@ -19,5 +19,6 @@ toSource
 * **getGemmaAnnot:** Given a gemma id, downloads the annotation file. I'll try to add a way to get gemma id-geo id matchings.
 * **gemmaAnnot:** Annotates an ExoressionSet object. Commonly the output of pre-processing functions like `rma`. Outputs to a data frame and/or to a file. Output is invisible when writing to file.
 
+**matchFiles:** Compares the files in two folders to see if they have the same content using md5sums. Useful when meddling with CEL files of questionable sources...
 
 **ogbox:** stuff and things
