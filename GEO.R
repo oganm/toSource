@@ -25,7 +25,7 @@ gsmDown = function(gsm,outfile){
                  c('_'  , '.', '-'),
                  regmatches(page,gregexpr('ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM.*?gz',page,perl = T))[[1]]),
         paste0(outfile,'.gz'))
-    system(paste0('gunzip ',outfile,'.gz'))
+    system(paste0('gunzip "',outfile,'.gz"'))
 }
 
 
