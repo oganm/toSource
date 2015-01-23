@@ -31,14 +31,15 @@ purge =   function() {
 # modified from
 # http://stackoverflow.com/questions/18235269/efficiently-reading-specific-lines-from-large-files-into-r
 checkLines = function(daFile,lines,fun = readLines, ...){
-    sapply(lines, function(x){
-        con = pipe(paste0("sed -n -e'",x,"p' ",daFile))
+    outAll = vector(mode= 'list',length = length(lines))
+    for (i in 1:length(lines)){
+        con = pipe(paste0("sed -n -e'",lines[i],"p' ",daFile))
         out = fun(con, ...)
-        close(con)
-        return(out)
-    })
-    
+        outAll[[i]] = out
+    }
+    return(outAll)
 }
+
 
 # remember to match the cases. 
 # defaults to .R if extension not given
