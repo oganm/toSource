@@ -15,9 +15,14 @@ gsmFind = function(GSE, regex=''){
     return(gsms)
 }
 
-gsmDown = function(gsm,outfile){
+gsmDown = function(gsm,outfile, overwrite){
     # downloads a given GSM
     dir.create(dirname(outfile), showWarnings=F,recursive=T)
+    if (file.exists(outfile) & !overwrite){
+        print('you already have it bro. i aint gonna get it again')
+        print(basename(outfile))
+        return()
+    }
     library(RCurl)
     page = getURL(paste0('http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=',gsm))
     download.file(
@@ -25,15 +30,15 @@ gsmDown = function(gsm,outfile){
                  c('_'  , '.', '-'),
                  regmatches(page,gregexpr('ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM.*?gz',page,perl = T))[[1]]),
         paste0(outfile,'.gz'))
-    system(paste0('gunzip "',outfile,'.gz"'))
+    system(paste0('gunzip -f "',outfile,'.gz"'))
 }
 
 
-gseDown = function(GSE,regex ='',outDir, extension = '.cel'){
+gseDown = function(GSE,regex ='',outDir, extension = '.cel',overwrite=F){
     # downloads GSMs matching a regular expression from a GSE (description not GSM ID)
     library(RCurl)
     gsms = gsmFind(GSE, regex)
     for (i in 1:length(gsms)){
-        gsmDown(gsms[i],paste0(outDir,'/', gsms[i],extension))
+        gsmDown(gsms[i],paste0(outDir,'/', gsms[i],extension),overwrite)
     }
 }
