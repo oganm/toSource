@@ -1,3 +1,8 @@
+options("error" = function(){
+    print('You fucked it up moron')
+    .rs.recordTraceback(TRUE)
+})
+
 # allows directly assigning list outputs to variables
 # http://stackoverflow.com/questions/1826519/function-returning-more-than-one-value
 list <- structure(NA,class="result")
