@@ -1,7 +1,9 @@
-options("error" = function(){
-    print('You fucked it up moron')
-    .rs.recordTraceback(TRUE)
-})
+# clears display
+# http://stackoverflow.com/questions/14260340/function-to-clear-the-console-in-r
+clc = function(){
+    cat("\014") 
+}
+
 
 # allows directly assigning list outputs to variables
 # http://stackoverflow.com/questions/1826519/function-returning-more-than-one-value
