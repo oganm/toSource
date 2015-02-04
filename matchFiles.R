@@ -1,7 +1,7 @@
 # given two directories, matches the files that are the same based on their
 # md5 sums
 require(tools) 
-matchFiles = function(dir1, dir2, fileOut=NA, basename=T){
+matchFiles = function(dir1, dir2, fileOut=NA, basename=T, justMatches=F, removeSameName=F){
     files1 = list.files(dir1, full.names=T)
     files2 = list.files(dir2, full.names=T)
     sums1 = md5sum(files1)
@@ -21,6 +21,14 @@ matchFiles = function(dir1, dir2, fileOut=NA, basename=T){
     
     if (basename){
         out = apply(out,2,basename)
+    }
+    
+    if (justMatches){
+        out=out[apply(out,1,function(x){!any(is.na(x))}),]
+    }
+    
+    if (removeSameName){
+        out = out[out[,1]!=out[,2],]
     }
     
     if (!is.na(fileOut)){
