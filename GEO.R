@@ -15,7 +15,7 @@ gsmFind = function(GSE, regex=''){
     return(gsms)
 }
 
-gsmDown = function(gsm,outfile, overwrite){
+gsmDown = function(gsm,outfile, overwrite = F, warnings = T){
     # downloads a given GSM
     dir.create(dirname(outfile), showWarnings=F,recursive=T)
     if (file.exists(outfile) & !overwrite){
@@ -25,12 +25,26 @@ gsmDown = function(gsm,outfile, overwrite){
     }
     library(RCurl)
     page = getURL(paste0('http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=',gsm))
+    
+    fileURL = gsubMult(c('%5F','%2E','%2D'),
+                       c('_'  , '.', '-'),
+                       regmatches(page,
+                                  gregexpr('ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM.*?gz',
+                                           page,
+                                           perl = T))[[1]])
+    if (len(fileURL) == 0){
+        if (warnings){
+            warning(paste(gsm,"doesn't have a file attached"))
+        }
+        return(invisible(F))
+    }
     download.file(
         gsubMult(c('%5F','%2E','%2D'),
                  c('_'  , '.', '-'),
                  regmatches(page,gregexpr('ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM.*?gz',page,perl = T))[[1]]),
         paste0(outfile,'.gz'))
     system(paste0('gunzip -f "',outfile,'.gz"'))
+    invisible(T)
 }
 
 
