@@ -21,7 +21,7 @@ gsmDown = function(gsm,outfile, overwrite = F, warnings = T){
     if (file.exists(outfile) & !overwrite){
         print('you already have it bro. i aint gonna get it again')
         print(basename(outfile))
-        return()
+        return(invisible(F))
     }
     library(RCurl)
     page = getURL(paste0('http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=',gsm))
