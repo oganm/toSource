@@ -27,7 +27,7 @@ gsmDown = function(gsm,outfile, overwrite = F, warnings = T){
     page = getURL(paste0('http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=',gsm))
     
     fileURL = gsubMult(c('%5F','%2E','%2D','%2B'),
-                       c('_'  , '.', '-','+'),
+                       c('_'  , '.',  '-',  '+'),
                        regmatches(page,
                                   gregexpr('ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM.*?gz',
                                            page,
@@ -38,11 +38,7 @@ gsmDown = function(gsm,outfile, overwrite = F, warnings = T){
         }
         return(invisible(F))
     }
-    download.file(
-        gsubMult(c('%5F','%2E','%2D'),
-                 c('_'  , '.', '-'),
-                 regmatches(page,gregexpr('ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM.*?gz',page,perl = T))[[1]]),
-        paste0(outfile,'.gz'))
+    download.file(fileURL,paste0(outfile,'.gz'))
     system(paste0('gunzip -f "',outfile,'.gz"'))
     invisible(T)
 }
