@@ -31,7 +31,7 @@ gsmSize = function(gsm, warnings = T){
         }
         return(invisible(F))
     }
-    sizeString = getURL(fileURL)
+    sizeString = getURL(fileURL,nobody=1L, header=1L)
     size = as.numeric(
         str_extract(sizeString, perl('(?<=(Content-Length: )).*?(?=\r)')))
     return(size)
