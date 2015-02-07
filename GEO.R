@@ -1,7 +1,7 @@
 # replacemt to gsmDown. Didn't remove it in case I'm using it somewhere. This
 # will include all GEO related functions
 library(RCurl)
-
+require(stringr)
 eval( expr = parse( text = getURL(
     "https://raw.githubusercontent.com/oganm/toSource/master/ogbox.R",
     ssl.verifypeer=FALSE) ))
@@ -13,6 +13,28 @@ gsmFind = function(GSE, regex=''){
     page = getURL(paste0('www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=', GSE))
     gsms = regmatches(page,gregexpr(paste0('GSM[0-9]*?(?=<.*\n.*?',regex,'.*?</td)'),page,perl=T))[[1]]
     return(gsms)
+}
+
+
+gsmSize = function(gsm, warnings = T){
+    library(RCurl)
+    page = getURL(paste0('http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=',gsm))
+    fileURL = gsubMult(c('%5F','%2E','%2D','%2B'),
+                       c('_'  , '.',  '-',  '+'),
+                       regmatches(page,
+                                  gregexpr('ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM.*?gz',
+                                           page,
+                                           perl = T))[[1]])
+    if (len(fileURL) == 0){
+        if (warnings){
+            warning(paste(gsm,"doesn't have a file attached"))
+        }
+        return(invisible(F))
+    }
+    sizeString = getURL(fileURL)
+    size = as.numeric(
+        str_extract(sizeString, perl('(?<=(Content-Length: )).*?(?=\r)')))
+    return(size)
 }
 
 gsmDown = function(gsm,outfile, overwrite = F, warnings = T){
