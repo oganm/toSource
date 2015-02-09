@@ -19,8 +19,8 @@ gsmFind = function(GSE, regex=''){
 gsmSize = function(gsm, warnings = T){
     library(RCurl)
     page = getURL(paste0('http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=',gsm))
-    fileURL = gsubMult(c('%5F','%2E','%2D','%2B'),
-                       c('_'  , '.',  '-',  '+'),
+    fileURL = gsubMult(c('%5F','%2E','%2D','%2B','%2C','%20'),
+                       c('_'  , '.' ,'-'  ,'+'  , ',' , ' '),
                        regmatches(page,
                                   gregexpr('ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM.*?gz',
                                            page,
@@ -48,8 +48,8 @@ gsmDown = function(gsm,outfile, overwrite = F, warnings = T){
     library(RCurl)
     page = getURL(paste0('http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=',gsm))
     
-    fileURL = gsubMult(c('%5F','%2E','%2D','%2B'),
-                       c('_'  , '.',  '-',  '+'),
+    fileURL = gsubMult(c('%5F','%2E','%2D','%2B','%2C','%20'),
+                       c('_'  , '.' ,  '-','+'  ,','  ,' '),
                        regmatches(page,
                                   gregexpr('ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM.*?gz',
                                            page,
