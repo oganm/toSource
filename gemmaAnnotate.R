@@ -21,8 +21,30 @@ getGemmaAnnot = function(id,chipFile,annotType){
     system(paste0('gunzip ', chipFile,'.gz'))
 }
 
+# for affy package
 gemmaAnnot = function(normalized, chipFile, outFile=NA){
     expression = exprs(normalized)
+    annotations = read.table(chipFile, header=T,sep='\t', quote="")
+    # gene symbols are turned into Gene.Symbols because I was using it as Gene.Symbols
+    # all this time. I ain't gonna change my scripts...
+    names(annotations)[2] = 'Gene.Symbol'
+    # Still not changing my code...
+    names(annotations)[1] = 'Probe'
+    
+    annotations = annotations[match(rownames(expression), annotations$Probe),]
+
+    annotatedExpr = cbind(annotations, expression)
+    if (is.na(outFile)){
+        return(annotatedExpr)
+    } else {
+        write.csv(annotatedExpr,  file = outFile, row.names = F)
+        return(invisible(annotatedExpr))
+    }
+}
+
+gemmaAnnotOligo = function(normalized, chipFile, outFile = NA){
+    featureData(normalized) <- getNetAffx(normalized, "transcript")
+    expression <- get("exprs", pos=assayData(exonTS))
     annotations = read.table(chipFile, header=T,sep='\t', quote="")
     # gene symbols are turned into Gene.Symbols because I was using it as Gene.Symbols
     # all this time. I ain't gonna change my scripts...
