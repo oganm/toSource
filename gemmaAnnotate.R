@@ -44,7 +44,7 @@ gemmaAnnot = function(normalized, chipFile, outFile=NA){
 
 gemmaAnnotOligo = function(normalized, chipFile, outFile = NA){
     featureData(normalized) <- getNetAffx(normalized, "transcript")
-    expression <- get("exprs", pos=assayData(exonTS))
+    expression <- get("exprs", pos=assayData(normalized))
     annotations = read.table(chipFile, header=T,sep='\t', quote="")
     # gene symbols are turned into Gene.Symbols because I was using it as Gene.Symbols
     # all this time. I ain't gonna change my scripts...
