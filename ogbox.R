@@ -1,3 +1,18 @@
+# list.celfiles from oligo package. it's better than affy since it has listGzipped 
+# option but I don't want to import the whole thing for that
+celFiles = function (..., listGzipped = FALSE) 
+{
+    files <- list.files(...)
+    if (listGzipped) {
+        return(files[grep("\\.[cC][eE][lL]\\.[gG][zZ]$|\\.[cC][eE][lL]$", 
+            files)])
+    }
+    else {
+        return(files[grep("\\.[cC][eE][lL]$", files)])
+    }
+}
+
+
 # clears display
 # http://stackoverflow.com/questions/14260340/function-to-clear-the-console-in-r
 clc = function(){
