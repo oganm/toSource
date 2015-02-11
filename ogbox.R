@@ -273,6 +273,7 @@ toColor = function(daList, palette = NA){
     #to match palette names to uniq names so that custom naming is possible
     if (!is.null(names(palette))){
         palette = trimNAs(palette[match(uniq,names(palette))])
+        names(palette) = uniq
     }
 
 
