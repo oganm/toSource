@@ -266,7 +266,9 @@ toColor = function(daList, palette = NA){
     if (is.na(palette[1])){
         palette = rainbow(length(uniq))
     }
-    names(palette) = uniq
+    if (is.null(names(palette))){
+        names(palette) = uniq
+    }
     cols = vector (length = length(daList))
     #to match palette names to uniq names so that custom naming is possible
     if (!is.null(names(palette))){
