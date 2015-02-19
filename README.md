@@ -21,4 +21,6 @@ toSource
 
 **matchFiles:** Compares the files in two folders to see if they have the same content using md5sums. Useful when meddling with CEL files of questionable sources...
 
+**matchMaker:** Identifies wrongly labelled samples in a dataset using questionable bayesian clustering methods based on differentially expressed genes between each pair of groups. Individual members of the groups are reclustered and if they cluster wrongly, this is reported. If this happens in multiple pairwise comparisons, a bayesian classifier will be trained for every pair in the list of potential matches, and the sample is placed in a group based on each classifier. If one group wins in all classification "competitions" that match is reported. If there are disputes, result of every pairwise comparison for that sample is reported. Assumes groups are sufficiently distant from each other. Adjusting fold change and p value tresholds might be required for individual datasets
+
 **ogbox:** stuff and things
