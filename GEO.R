@@ -51,7 +51,7 @@ gsmDown = function(gsm,outfile, overwrite = F, warnings = T){
     fileURL = gsubMult(c('%5F','%2E','%2D','%2B','%2C'),
                        c('_'  , '.' ,  '-','+'  ,','),
                        regmatches(page,
-                                  gregexpr('ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM.*?gz',
+                                  gregexpr('ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM.*?(c|C)(e|E)(l|L).gz',
                                            page,
                                            perl = T))[[1]])
     if (len(fileURL) == 0){
