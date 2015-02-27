@@ -1,3 +1,7 @@
+
+rn = rownames
+cn = colnames
+
 # list.celfiles from oligo package. it's better than affy since it has listGzipped 
 # option but I don't want to import the whole thing for that
 celFiles = function (..., listGzipped = FALSE) 
