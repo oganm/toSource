@@ -1,7 +1,7 @@
 require(limma)
 require(e1071)
 # finds differentially expressed genes between groups that has high fold change
-# and confidence to identify potentially wrongly labeled samples can mistake
+# and confidence to identify potentially wrongly labeled samples. can mistake
 # contamination with mislabeling but you wouldn't want either I suppose.
 # If samples are inherently very close to each other... well you're screwed...
 # if most of your samples are mislabeld... again you're screwed.
