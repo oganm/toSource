@@ -123,13 +123,13 @@ mergeList = function(aList,bList,forceUnique=T){
 }
 
 findInList = function(object, aList){
-    indexes = vector()
+    indices = vector()
     for (i in 1:length(aList)){
         if (object %in% aList[[i]]){
-            indexes = c(indexes, i)
+            indices = c(indices, i)
         }
     }
-    return(indexes)
+    return(indices)
 }
 
 listCount = function(aList){
