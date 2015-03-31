@@ -254,9 +254,9 @@ listStrW = function(daArray){
 
 
 
-#concatanate to preallocated. only works for non zero values and with numeric or boolean stuff
+#concatanate to preallocated. initiate vectors with NAs to make it work
 "%c%" = function (x, y){
-    start = which(x == 0)[1]
+    start = which(is.na(x))[1]
     x[start:(start+length(y) - 1)]= y
     return(x)
 }
@@ -310,6 +310,10 @@ threeQuartile <- function(x){
     names(out) <- c("ymin","y","ymax")
     return(out)
 }
+
+# for intersecting more than one sets
+intersectMult()
+
 
 # function acronyms ----
 len = length
