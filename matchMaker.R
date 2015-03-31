@@ -1,5 +1,5 @@
-require(limma)
-require(e1071)
+library(limma)
+library(e1071)
 # finds differentially expressed genes between groups that has high fold change
 # and confidence to identify potentially wrongly labeled samples can mistake
 # contamination with mislabeling but you wouldn't want either I suppose.
