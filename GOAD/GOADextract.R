@@ -25,6 +25,7 @@ for (id in 1:size){
 
 datasets = t(as.data.frame(datasets))
 rownames(datasets) = NULL
-dataFile = file('GOAD/datasets.md')
-writeLines( kable(datasets), dataFile)
-close(dataFile)
+write.table(datasets,file = 'datasets.tsv',sep='\t', row.names = F)
+# dataFile = file('GOAD/datasets.md')
+# writeLines( kable(datasets), dataFile)
+# close(dataFile)
