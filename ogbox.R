@@ -383,6 +383,10 @@ legendGrad <- function(col, lev){
     par <- opar
 }
 
+# to use instead of "head" with bidimentially huge matrices
+corner = function(x){
+    x[1:10,1:10]
+}
 
 # function acronyms ----
 len = length
