@@ -341,7 +341,7 @@ intersectMult = function (...){
     return(out)
 }
 
-scale = function(x){
+scale01 = function(x){
     x = (x - min(x))/(max(x)-min(x))
     return(x)
 }
