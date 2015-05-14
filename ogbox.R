@@ -388,6 +388,13 @@ corner = function(x){
     x[1:10,1:10]
 }
 
+# http://codegolf.stackexchange.com/questions/49671/do-you-want-to-code-a-snowman/49780#49780
+snowman = function(x){
+    W =c("_===_"," ___\n .....","  _\n  /_\\"," ___\n (_*_)",",",".","_"," ",".","o","O","-"," ","\\"," "," ","<"," ","/"," "," ","/"," ","",">"," ","\\",""," : ","] [","> <","   "," : ","\" \"","___","   ")
+    i=as.integer(strsplit(x,"")[[1]]);cat(" ",W[i[1]],"\n",W[i[5]+12],"(",W[i[3]+8],W[i[2]+4],W[i[4]+8],")",W[i[6]+20],"\n",W[i[5]+16],"(",W[i[7]+28],")",W[i[6]+24],"\n"," (",W[i[8]+32], ")",sep="")
+}
+
+
 # function acronyms ----
 len = length
 as.char = as.character
