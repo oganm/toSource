@@ -105,6 +105,8 @@ sourceGithub = function(user, repo, script){
     source(textConnection(text))
 }
 
+# multiple iterations of gsub in a single line. it replaces every element in patterns
+# with matching elements at replacements. Starts from the first
 gsubMult = function(patterns, replacements, x,
                     ignore.case = FALSE, perl = FALSE, fixed = FALSE, useBytes = FALSE) {
     for (i in 1:length(patterns)){
@@ -114,14 +116,13 @@ gsubMult = function(patterns, replacements, x,
     return(x)
 }
 
+# returns parent directory.
 getParent = function(step = 1){
     wd = getwd()
     for (i in 1:step){
-        setwd('..')
+       wd = dirname(wd)
     }
-    parent = getwd()
-    setwd(wd)
-    return(paste(parent,'/',sep=''))
+    return(wd)
 }
 
 #merges lists by their common names. adds non common ones.
@@ -139,6 +140,7 @@ mergeList = function(aList,bList,forceUnique=T){
     return(outList)
 }
 
+# seeks for a given object in a single layered list
 findInList = function(object, aList){
     indices = vector()
     for (i in 1:length(aList)){
@@ -149,18 +151,22 @@ findInList = function(object, aList){
     return(indices)
 }
 
+# counts total no of elements in a single layered list
 listCount = function(aList){
     length(unlist(aList))
 }
 
+# removes NAs in a vector by shortening it
 trimNAs = function(aVector) {
     return(aVector[!is.na(aVector)])
 }
 
+# removes given elements in a vector by shortening it
 trimElement = function (aVector,e){
     return(aVector[!(aVector %in% e)])
 }
 
+# finds total depth of a list which is assumed to be symmetrical
 listDepth = function(deList){
     step = 1
     while (T){
@@ -176,11 +182,11 @@ listDepth = function(deList){
 repRow<-function(x,n){
     matrix(rep(x,each=n),nrow=n)
 }
-
 repCol<-function(x,n){
     matrix(rep(x,each=n), ncol=n, byrow=TRUE)
 }
 
+# repeats every element in the vector n times
 repIndiv = function (aVector, n){
     output = vector(length = length(aVector) * n)
     step = 1
@@ -197,7 +203,8 @@ mode <- function(x) {
     ux[which.max(tabulate(match(x, ux)))]
 }
 
-#load that bloody function no matter what
+# load that bloody function no matter what
+# doesn't seems to work all that well...
 insist = function(name){
     name = substitute(name)
     name = as.character(name)
@@ -249,6 +256,8 @@ listSet = function(daList,daArray ,something){
     eval(parse(text = paste0(name, out, '<<-something')))
 }
 
+# > listStr(c(1,2,3))
+# [1] "[[1]][[2]][[3]]"
 listStr = function(daArray){
     out = ''
     for (i in daArray[1 : length(daArray)]){
@@ -258,11 +267,14 @@ listStr = function(daArray){
     return(out)
 }
 
+# the last element is returned with a singe "["
+# > listStrW(c(1,2,3))
+# [1] "[[1]][[2]][3]"
 listStrW = function(daArray){
     out = ''
     if (length(daArray) > 1){
         for (i in daArray[1 : (length(daArray) - 1)]){
-            out = paste0('out','[[',i, ']]')
+            out = paste0(out,'[[',i, ']]')
         }
     }
     out = paste0(out,'[', daArray[length(daArray)],']')
@@ -340,7 +352,7 @@ intersectMult = function (...){
     }
     return(out)
 }
-
+# does 0-1 scaling
 scale01 = function(x){
     x = (x - min(x))/(max(x)-min(x))
     return(x)
