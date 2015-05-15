@@ -402,6 +402,22 @@ snowman = function(x){
     i=as.integer(strsplit(x,"")[[1]]);cat(" ",W[i[1]],"\n",W[i[5]+12],"(",W[i[3]+8],W[i[2]+4],W[i[4]+8],")",W[i[6]+20],"\n",W[i[5]+16],"(",W[i[7]+28],")",W[i[6]+24],"\n"," (",W[i[8]+32], ")",sep="")
 }
 
+# to separate microarray expression data into two data frames, one containing
+# gene information other containing expression values. Most people seem to use
+# this kind of output. use as list[gene,expression] = sepExpr(data) to get to
+# dfs in one go
+sepExpr = function(allDataPre){
+    for (i in 1:ncol(allDataPre)){
+        if ('double'==typeof(allDataPre[,i])){
+            expBound = i
+            break
+        }
+    }
+    geneData = allDataPre[,1:(expBound-1)]
+    exprData = allDataPre[,expBound:ncol(allDataPre)]
+    return(list(geneData,exprData))
+}
+
 
 # function acronyms ----
 len = length
