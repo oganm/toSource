@@ -18,7 +18,7 @@ goadDifGenes = function(ids, p,foldChange=c('ALL','UP','DOWN')){
     groupHeads = grep('name',list)
     groupNames = str_extract(list[groupHeads],perl('(?<=:[\"]).*'))
     # some cleaning
-    list[grep('data',list)] = str_extract(list[grep('data',list)], perl('(?<=:[[][\"]).*'))
+    list[grep('data',list)] = str_extract(list[grep('data',list)], perl('(?<=:\\[\\").*'))
     list[grep('}|[]]',list)] =  str_extract(list[grep('}|[]]',list)], perl('^.*?(?=[\"])'))
     
     
