@@ -293,10 +293,10 @@ listStrW = function(daArray){
 
 
 # turn every member of daList to a color from the palette
-toColor = function(daList, palette = NA){
+toColor = function(daList, palette = NULL){
     daList = as.factor(daList)
     uniq = unique(daList)
-    if (is.na(palette[1])){
+    if (is.null(palette[1])){
         palette = rainbow(length(uniq))
     }
     if (is.null(names(palette))){
@@ -316,6 +316,21 @@ toColor = function(daList, palette = NA){
     out$cols = cols
     out$palette = palette
     
+    return(out)
+}
+
+# creates a color gradient from a continuous variable. returns assigned color values and the legend
+toColorGrad = function(daList, startCol = 'white', endCol = 'red', fine = 0.01){
+    colorGrad =  colorRampPalette(c(startCol, endCol))
+    colorLegend = data.frame(value=seq(min(daList),max(daList),fine),
+                             color=colorGrad(len(seq(min(daList),max(daList),fine))))
+                             
+    colors = colorLegend$color[
+    sapply(daList,function(x){
+        which(abs(colorLegend$value-x) == min(abs(colorLegend$value-x)))
+    })]
+    
+    out = list(cols = colors, palette = colorLegend)
     return(out)
 }
 
