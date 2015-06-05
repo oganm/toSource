@@ -446,6 +446,32 @@ sepExpr = function(allDataPre){
 }
 
 
+# common read-write functions for data analysis -----
+write.design = function(x, file){
+    write.table(x,file= file, sep = '\t', quote=F, row.names = F)
+}
+
+read.design  = function(x){
+    read.table(x,header=T,sep='\t',stringsAsFactors=F,quote="")
+}
+
+read.exp = function(x){
+    read.csv(x,header = T,stringsAsFactors=F)
+}
+
+sepExpr = function(allDataPre){
+    for (i in 1:ncol(allDataPre)){
+        if ('double'==typeof(allDataPre[,i])){
+            expBound = i
+            break
+        }
+    }
+    geneData = allDataPre[,1:(expBound-1)]
+    exprData = allDataPre[,expBound:ncol(allDataPre)]
+    return(list(geneData,exprData))
+}
+
+
 # function acronyms ----
 len = length
 as.char = as.character
