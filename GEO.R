@@ -19,12 +19,8 @@ gsmFind = function(GSE, regex=''){
 gsmSize = function(gsm, warnings = T){
     library(RCurl)
     page = getURL(paste0('http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=',gsm))
-    fileURL = gsubMult(c('%5F','%2E','%2D','%2B','%2C'),
-                       c('_'  , '.' ,'-'  ,'+'  , ','),
-                       regmatches(page,
-                                  gregexpr('ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM.*?gz',
-                                           page,
-                                           perl = T))[[1]])
+    fileURL = fileURL = URLdecode(str_extract(page,'ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM.*?(c|C)(e|E)(l|L)%2Egz'))
+    
     if (len(fileURL) == 0){
         if (warnings){
             warning(paste(gsm,"doesn't have a file attached"))
@@ -48,12 +44,8 @@ gsmDown = function(gsm,outfile, overwrite = F, warnings = T){
     library(RCurl)
     page = getURL(paste0('http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=',gsm))
     
-    fileURL = gsubMult(c('%5F','%2E','%2D','%2B','%2C'),
-                       c('_'  , '.' ,  '-','+'  ,','),
-                       regmatches(page,
-                                  gregexpr('ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM.*?(c|C)(e|E)(l|L).gz',
-                                           page,
-                                           perl = T))[[1]])
+    fileURL =fileURL = URLdecode(str_extract(page,'ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM.*?(c|C)(e|E)(l|L)%2Egz'))
+    
     if (len(fileURL) == 0){
         if (warnings){
             warning(paste(gsm,"doesn't have a file attached"))
