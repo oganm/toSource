@@ -471,6 +471,10 @@ sepExpr = function(allDataPre){
     return(list(geneData,exprData))
 }
 
+# merges regex's with an or clause. search for multiple regexes
+regexMerge = function(regexList){
+    paste0('(',paste0(gsmFind('GSE65135', 'lymph'),collapse=')|('), ')')
+}
 
 # function acronyms ----
 len = length
