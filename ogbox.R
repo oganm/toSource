@@ -476,6 +476,9 @@ regexMerge = function(regexList){
     paste0('(',paste0(gsmFind('GSE65135', 'lymph'),collapse=')|('), ')')
 }
 
+# http://stackoverflow.com/questions/2261079/how-to-trim-leading-and-trailing-whitespace-in-r
+trim <- function (x) gsub("^\\s+|\\s+$", "", x)
+
 # function acronyms ----
 len = length
 as.char = as.character
