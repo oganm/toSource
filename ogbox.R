@@ -480,6 +480,7 @@ sepExpr = function(allDataPre){
         }
         geneData = allDataPre[,1:(expBound-1),with=F]
         exprData = allDataPre[,expBound:ncol(allDataPre), with = F]
+        return(list(geneData,exprData))
     }
 }
 
