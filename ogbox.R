@@ -486,7 +486,7 @@ sepExpr = function(allDataPre){
 
 # merges regex's with an or clause. search for multiple regexes
 regexMerge = function(regexList){
-    paste0('(',paste0(gsmFind('GSE65135', 'lymph'),collapse=')|('), ')')
+    paste0('(',paste0(regexList,collapse=')|('),')')
 }
 
 # finds regex in an array, returns the elements
