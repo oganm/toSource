@@ -489,6 +489,11 @@ regexMerge = function(regexList){
     paste0('(',paste0(gsmFind('GSE65135', 'lymph'),collapse=')|('), ')')
 }
 
+# finds regex in an array, returns the elements
+regFind = function(regex, array){
+    array[grep(regex,array)]
+}
+
 # http://stackoverflow.com/questions/2261079/how-to-trim-leading-and-trailing-whitespace-in-r
 trimWS <- function (x) gsub("^\\s+|\\s+$", "", x)
 
