@@ -1,4 +1,4 @@
-
+library(igraph)
 # trims comment lines, and outputs a file connection.
 # useful when comment char is only a comment char in the beginning of the file
 trimHeadComment = function(fileName, commentChar = '#',outFile = NULL){
