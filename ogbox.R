@@ -1,4 +1,3 @@
-library(igraph)
 # trims comment lines, and outputs a file connection.
 # useful when comment char is only a comment char in the beginning of the file
 trimHeadComment = function(fileName, commentChar = '#',outFile = NULL){
@@ -522,9 +521,7 @@ mycircle <- function(coords, v=NULL, params) {
            })
 }
 
-add.vertex.shape("fcircle", clip=igraph.shape.noclip,
-                 plot=mycircle, parameters=list(vertex.frame.color=1,
-                                                vertex.frame.width=1))
+
 
 # http://stackoverflow.com/questions/2261079/how-to-trim-leading-and-trailing-whitespace-in-r
 trimWS <- function (x) gsub("^\\s+|\\s+$", "", x)
