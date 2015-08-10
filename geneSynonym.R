@@ -8,7 +8,7 @@ synoTarget = 'Data/GeneNames'
 prepGenes = function(tax=c(9606,10090),removeFull=T,forceUpdate=F){
     # to download the data and prepare it for other functions to use. stores the
     # data on disk for later use
-    require(data.table)
+    library(data.table)
     if (forceUpdate){
         file.remove(paste0(synoTarget,'/gene_info'))
         file.remove(paste0(synoTarget,'/gene_info.gz'))
