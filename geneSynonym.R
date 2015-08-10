@@ -7,7 +7,8 @@ synoTarget = 'Data/GeneNames'
 
 prepGenes = function(tax=c(9606,10090),removeFull=T,forceUpdate=F){
     # to download the data and prepare it for other functions to use. stores the
-    # data on disk for later use
+    # data on disk for later use. removeFull chooses if the whole data file should be kept
+    # if forceUpdate = F it does not overwrite the files if they aldready exists
     library(data.table)
     if (forceUpdate){
         file.remove(paste0(synoTarget,'/gene_info'))
