@@ -18,7 +18,7 @@ setUpHomologene = function(directory='Data/homologene.tsv'){
     write.table(homoFile,file=homoloGeneTarget, quote=F,sep = '\t',col.names=T,row.names=F)
 }
 
-loadHomo(directory=NULL){
+loadHomo= function(directory=NULL){
     homoloGeneTarget<<-directory
 }
 
