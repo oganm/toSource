@@ -5,7 +5,8 @@
 synoTarget = 'Data/GeneNames'
 
 
-prepGenes = function(tax=c(9606,10090),removeFull=T,forceUpdate=F){
+prepGenes = function(tax=c(9606,10090),removeFull=T,forceUpdate=F, synoTarget = 'Data/GeneNames'){
+    synoTarget <<- synoTarget
     # to download the data and prepare it for other functions to use. stores the
     # data on disk for later use. removeFull chooses if the whole data file should be kept
     # if forceUpdate = F it does not overwrite the files if they aldready exists
@@ -54,6 +55,10 @@ prepGenes = function(tax=c(9606,10090),removeFull=T,forceUpdate=F){
     if (removeFull){
         file.remove(paste0(synoTarget,'/gene_info'))
     }
+}
+
+loadSyno = function(synoTarget = 'Data/GeneNames'){
+    synoTarget <<- synoTarget
 }
 
 mouseSyno = function(genes,cores=1){
