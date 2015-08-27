@@ -1,6 +1,7 @@
 homoloGeneTarget = 'Data/homologene.tsv'
 
-setUpHomologene = function(){
+setUpHomologene = function(directory='Data/homologene.tsv'){
+    homoloGeneTarget <<- directory
     download.file(url = "ftp://ftp.ncbi.nih.gov/pub/HomoloGene/current/homologene.data", destfile = 'homologene.data')
     homologene = read.table('homologene.data',sep ='\t',quote='')
     names(homologene) = c('HID','Taxonomy','Gene.ID','Gene.Symbol','Protein.GI','Protein.Accession')
@@ -17,6 +18,9 @@ setUpHomologene = function(){
     write.table(homoFile,file=homoloGeneTarget, quote=F,sep = '\t',col.names=T,row.names=F)
 }
 
+loadHomo(directory=NULL){
+    homoloGeneTarget<<-directory
+}
 
 mouse2human = function(genes){
     homolo = read.table(homoloGeneTarget,header=T,sep='\t')
