@@ -1,18 +1,47 @@
 # replacemt to gsmDown. Didn't remove it in case I'm using it somewhere. This
 # will include all GEO related functions
 library(RCurl)
-require(stringr)
+library(stringr)
+library(parallel)
 eval( expr = parse( text = getURL(
     "https://raw.githubusercontent.com/oganm/toSource/master/ogbox.R",
     ssl.verifypeer=FALSE) ))
 
 
-gsmFind = function(GSE, regex=''){
+gsmFind = function(GSE, regex=NULL, cores = 1){
     # finds GSMs that match to a regular expression from a GSE (description not GSM ID)
-    library(RCurl)
     page = getURL(paste0('www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=', GSE))
-    gsms = regmatches(page,gregexpr(paste0('GSM[0-9]*?(?=<.*\n.*?',regex,'.*?</td)'),page,perl=T))[[1]]
+    sampleSize = as.numeric(str_extract(page, '(?<=Samples\\ \\().*?(?=\\))'))
+    # due to the structure of the page if there are more than 500 samples,
+    # download the list of gsms. in the list the title isnt present hence the
+    # need to look at the pages individually, this can make the function go slow
+    if (sampleSize>500){
+        page =  getURL(paste0('http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=',GSE,'&targ=self&view=brief&form=text'))
+        page = strsplit(page,split = '\n')[[1]]
+        gsms = trimNAs(str_extract(page,"GSM.*?(?=\r)"))
+        # only try doing this if regex is provided
+        if (!is.null(regex)){
+            if (cores==1){
+                gsms = gsms[
+                    sapply(1:len(gsms),function(i){
+                        page = getURL(paste0('http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=',gsms[i]))
+                        grepl(regex,str_extract(str_extract(page,'Title.*?\\n.*?\n'),'(?<=\\>).*?(?=\\<)'))
+                    })]
+            } else {
+                gsms = gsms[unlist(mclapply(1:len(gsms),function(i){
+                    page = getURL(paste0('http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=',gsms[i]))
+                    grepl(regex,str_extract(str_extract(page,'Title.*?\\n.*?\n'),'(?<=\\>).*?(?=\\<)'))
+                }, mc.cores = cores))]
+            }
+        }
+    } else {
+        page = getURL(paste0('www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=', GSE))
+        if (is.null(regex))
+            regex = ''
+        gsms = regmatches(page,gregexpr(paste0('GSM[0-9]*?(?=<.*\n.*?',regex,'.*?</td)'),page,perl=T))[[1]]
+    }
     return(gsms)
+    
 }
 
 
