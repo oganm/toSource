@@ -41,7 +41,6 @@ gsmFind = function(GSE, regex=NULL, cores = 1){
         gsms = regmatches(page,gregexpr(paste0('GSM[0-9]*?(?=<.*\n.*?',regex,'.*?</td)'),page,perl=T))[[1]]
     }
     return(gsms)
-    
 }
 
 
@@ -87,7 +86,7 @@ gsmDown = function(gsm,outfile, overwrite = F, warnings = T){
 }
 
 
-gseDown = function(GSE,regex ='',outDir, extension = '.cel',overwrite=F){
+gseDown = function(GSE,regex = NULL,outDir, extension = '.cel',overwrite=F){
     # downloads GSMs matching a regular expression from a GSE (description not GSM ID)
     library(RCurl)
     gsms = gsmFind(GSE, regex)
