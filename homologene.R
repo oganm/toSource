@@ -23,12 +23,12 @@ loadHomo= function(directory=NULL){
 }
 
 mouse2human = function(genes){
-    homolo = read.table(homoloGeneTarget,header=T,sep='\t')
+    homolo = read.table(homoloGeneTarget,header=T,sep='\t',stringsAsFactors=F)
     homolo = homolo[homolo$mouseGene %in% genes,]
     return(homolo[,c('mouseGene','humanGene')])
 }
 human2mouse = function(genes){
-    homolo = read.table(homoloGeneTarget,header=T,sep='\t')
+    homolo = read.table(homoloGeneTarget,header=T,sep='\t',stringsAsFactors=F)
     homolo = homolo[homolo$humanGene %in% genes,]
     return(homolo[,c('humanGene','mouseGene')])
 }
