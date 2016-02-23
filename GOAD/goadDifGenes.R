@@ -5,7 +5,7 @@ library(RCurl)
 library(stringr)
 goadDifGenes = function(ids, p,foldChange=c('ALL','UP','DOWN')){
     url = paste0("http://bioinf.nl:8080/GOAD/databaseSelectServlet?comparisonID=on&fold_change=", 
-                 foldChange[1], 
+                 match.arg(foldChange), 
                  '&p_value=',p,
                  '&comparison_ids=',paste(ids,collapse='%2C'))
     
