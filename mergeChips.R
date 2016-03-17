@@ -1,15 +1,15 @@
 mergeChips = function(affy1,affy2,allowIntersect=F){
     # for merging affymetrix chips of different generations.
     require(affy)
-    PNList1 = probeNames(affy1)
-    PNList2 = probeNames(affy2)
+    PNList1 = affy::probeNames(affy1)
+    PNList2 = affy::probeNames(affy2)
     
     if (length(PNList2) >length(PNList1)){
         affyTemp = affy2
         affy2 = affy1
         affy1 = affyTemp
-        PNList1 = probeNames(affy1)
-        PNList2 = probeNames(affy2)
+        PNList1 = affy::probeNames(affy1)
+        PNList2 = affy::probeNames(affy2)
     }
     
     
@@ -17,13 +17,13 @@ mergeChips = function(affy1,affy2,allowIntersect=F){
     
     
     
-    subsetPm = pm(affy1, unique(subsetList))
-    subsetPmOldOrdered = pm(affy2, unique(subsetList))
+    subsetPm = affy::pm(affy1, unique(subsetList))
+    subsetPmOldOrdered = affy::pm(affy2, unique(subsetList))
     
     if (!allowIntersect){
-        subsetPmOld = pm(affy2)
+        subsetPmOld = affy::pm(affy2)
     } else {
-        subsetPmOld = pm(affy2,unique(subsetList))
+        subsetPmOld = affy::pm(affy2,unique(subsetList))
     }
     
     allPm = cbind(subsetPm, subsetPmOldOrdered)
@@ -46,9 +46,9 @@ mergeChips = function(affy1,affy2,allowIntersect=F){
                    verbose, PACKAGE = "affy")
     
     phenoD = BiocGenerics::combine(phenoData(affy1), phenoData(affy2))
-    annot =  annotation(affy2)
+    annot =  BiocGenerics::annotation(affy2)
     protocolD = BiocGenerics::combine(protocolData(affy1), protocolData(affy2))
-    experimentD = experimentData(affy2)
+    experimentD = Biobase::experimentData(affy2)
     
     
     newNormalized = new("ExpressionSet", phenoData = phenoD, annotation = annot, 
