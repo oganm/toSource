@@ -6,7 +6,6 @@ baseR = c('base','compiler','datasets','graphics','grDevices','grid','methods','
 explicit = function(fileIn,fileOut,
                     ignore = baseR){
 
-    readLines(fileIn) %>% paste(collapse='\n')
     file = readLines(fileIn)
     
     parseData = file %>% paste(collapse='\n') %>% parse(text = .) %>% getParseData %>% 
