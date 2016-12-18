@@ -4,7 +4,7 @@ library(magrittr)
 baseR = c('base','compiler','datasets','graphics','grDevices','grid','methods','parallel','splines','stats','stats4','tcltk','utils')
 
 explicit = function(fileIn,fileOut,
-                    ignore = baseR){
+                    ignore = 'base'){
 
     file = readLines(fileIn)
     
